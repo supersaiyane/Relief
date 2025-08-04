@@ -1,0 +1,111 @@
+@startuml
+actor User
+participant "Browser UI" as UI
+participant "React Frontend" as Frontend
+participant "Express API" as API
+database "data.db\n(Main DB)" as MainDB
+database "logs.db\n(Audit DB)" as LogDB
+participant "SessionStore" as SS
+participant "AuditQueue\n(in‑memory)" as Q
+
+== User Authentication ==
+User -> Frontend : Fill login form\nPOST /auth/login {email, password}
+activate Frontend
+Frontend -> API : POST /auth/login
+activate API
+API -> MainDB : SELECT id,name,role_id FROM employee\nWHERE email=? AND password=?
+MainDB --> API : {id,name,role_id}
+API -> SS : createSession(sessionId, user.id)
+activate SS
+SS --> API : ack
+deactivate SS
+API --> Frontend : {sessionId, user:{id,name,roleId}}
+deactivate API
+Frontend -> Frontend : store sessionId, isLoggedIn, userRoleId
+
+== Dashboard Load ==
+User -> Frontend : Navigate to "/"
+activate Frontend
+Frontend -> API : GET /employees
+activate API
+API -> MainDB : SELECT ... FROM employee JOIN ... 
+MainDB --> API : [employee rows]
+API --> Frontend : JSON rows
+deactivate API
+Frontend --> UI : Render Admin/Interviewer/etc. tabs
+
+== Add Employee ==
+User -> UI : Click "Add Employee", submit form
+activate Frontend
+Frontend -> API : POST /employees {payload}
+activate API
+API -> MainDB : INSERT INTO employee(...)
+MainDB --> API : OK (newId)
+note right: server logs:\n enqueueLog(...)
+API -> Q : enqueueLog(userId,'employee',newId,'CREATE',{...})
+API --> Frontend : {id:newId}
+deactivate API
+Frontend --> UI : Show new row
+
+== Update Employee ==
+User -> UI : Edit row, submit form
+activate Frontend
+Frontend -> API : PUT /employees/123 {updates}
+activate API
+API -> MainDB : SELECT * FROM employee WHERE id=123
+MainDB --> API : oldRow
+API -> MainDB : UPDATE employee SET...
+MainDB --> API : OK
+note right: server logs:\n enqueueFieldLog(...) x N
+API -> Q : enqueueFieldLog(userId,'employee',123,'col',old,new)
+API --> Frontend : {updated:1, changes:[...] }
+deactivate API
+Frontend --> UI : Show success
+
+== Delete Employee ==
+User -> UI : Click "Delete"
+activate Frontend
+Frontend -> API : DELETE /employees/123
+activate API
+API -> MainDB : SELECT * FROM employee WHERE id=123
+MainDB --> API : oldRow
+API -> MainDB : DELETE FROM employee WHERE id=123
+MainDB --> API : OK
+note right: server logs:\n enqueueLog(...)
+API -> Q : enqueueLog(userId,'employee',123,'DELETE',oldRow)
+API --> Frontend : {deleted:1}
+deactivate API
+Frontend --> UI : Remove row
+
+== AuditQueue Flush ==
+loop every 1s
+  Q -> LogDB : INSERT INTO audit_logs\n(batch of queued items)
+  activate LogDB
+  LogDB --> Q : OK
+  deactivate LogDB
+end
+
+== View Audit Logs ==
+User -> UI : Open "System Reports" → "Audit Log"
+activate Frontend
+Frontend -> API : GET /audit_logs
+activate API
+API -> LogDB : SELECT * FROM audit_logs ORDER BY created_at DESC
+LogDB --> API : [audit rows]
+API --> Frontend : JSON rows
+deactivate API
+Frontend --> UI : Render audit log table
+
+== Error Logging ==
+User -> UI : Any failing API call
+activate Frontend
+Frontend -> API : request → error thrown
+activate API
+API -> LogDB : INSERT INTO logs(event_type,message,actor_id,...)
+activate LogDB
+LogDB --> API : OK
+deactivate LogDB
+API --> Frontend : 500 Internal Server Error
+deactivate API
+Frontend --> UI : Show error
+@enduml

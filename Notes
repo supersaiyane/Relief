@@ -1,0 +1,56 @@
+Completed
+small but robust - taken care
+    DB - SQlite3
+    Frontend - React
+    backend - Express
+Framework for UI
+Framework for backend
+Db decided
+CRUD apis(Add, delete, update)
+Sort on Columns of tables on UI
+Dialouge box for Crud Operation on admin tab
+Login basic page done
+Search boxes 
+Docker and Dockercompose done
+added architectural decision
+added workflow uml
+added png of uml
+added script to start dev mood
+added script to stop dev mood in linux/ win
+captured the audit log
+added a Queue monitor
+Pushed Audit logs and Queue Monitor under system reports
+Added cors to the backend
+added sign out button 
+persisted the session from logout
+added 404 page
+added the active users report --- need to work on this 
+added idle time out
+added role per user
+fixed the issue with Audit table.
+
+Pending 
+AD authentication ---- IT
+need to have a cloud storage for the Blob Data ---- IT --- Resume / Screenshot  -- 50GB(Can be expanded)
+Email ID/Passsword --- IT  (Mailbox) -- Incomming (Avoid) / Outgoing 
+
+Check all the fields in DB
+Place to host
+Write up for Architecturaldecision / Readme / ApiMap
+users need to captured in audit log
+queue system for other pages as well, currently done for employee.
+check queue monitor
+Work on the active users list
+setup prom and grafana for this
+Interview Screenshot
+Notifications email
+Download report
+Trim spaces from the filters
+Candidate overview and Interview Capture for Interviewer
+
+Video Interview Tab for Interview()
+
+
+bob.smith@example.com Secret123       -- 2
+carol.williams@example.com Password1  -- 3
+gurpreet.singh@example.com Passw0rd!   -- 1 

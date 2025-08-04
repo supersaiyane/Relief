@@ -1,0 +1,60 @@
+
+> relief-backend@1.0.0 dev
+> nodemon index.js
+
+[33m[nodemon] 3.1.10[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node index.js`[39m
+✅ Main database tables created and seeded.
+✅ Log database tables created.
+✅ employees.js loaded: enqueueLog=function enqueueFieldLog=function
+✅ Main database tables created and seeded.
+✅ Log database tables created.
+🚀 Server listening on http://localhost:3000
+✅ Connected to SQLite database.
+✅ Log DB connected.
+🔔 enqueueFieldLog UPDATE: {
+  userId: null,
+  tableName: 'employee',
+  recordId: '51',
+  columnName: 'employee_code',
+  prevValue: 'EMP001',
+  newValue: 'EMP00122'
+}
+📝 enqueueFieldLog: {
+  userId: null,
+  tableName: 'employee',
+  recordId: '51',
+  columnName: 'employee_code',
+  prevValue: 'EMP001',
+  newValue: 'EMP00122'
+}
+🔔 enqueueFieldLog UPDATE: {
+  userId: null,
+  tableName: 'employee',
+  recordId: '51',
+  columnName: 'status_id',
+  prevValue: 1,
+  newValue: '15'
+}
+📝 enqueueFieldLog: {
+  userId: null,
+  tableName: 'employee',
+  recordId: '51',
+  columnName: 'status_id',
+  prevValue: 1,
+  newValue: '15'
+}
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+✅ Main database tables created and seeded.
+✅ Log database tables created.
+✅ employees.js loaded: enqueueLog=function enqueueFieldLog=function
+✅ Main database tables created and seeded.
+✅ Log database tables created.
+🚀 Server listening on http://localhost:3000
+✅ Connected to SQLite database.
+✅ Log DB connected.
+^C

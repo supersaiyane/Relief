@@ -1,0 +1,44 @@
+/* src/styles/ActiveUsersPage.css */
+
+.active-users-page {
+  padding: 1rem;
+}
+
+.active-users-page h2 {
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.active-users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.active-users-table th,
+.active-users-table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.active-users-table th {
+  background-color: #f4f4f4;
+}
+
+.active-users-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.active-users-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.dot {
+  color: #28a745; /* green */
+  font-size: 1.2rem;
+  line-height: 1;
+}

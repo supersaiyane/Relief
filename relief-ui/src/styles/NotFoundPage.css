@@ -1,0 +1,55 @@
+/* Fullscreen container */
+.notfound-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  color: #0f0;
+  height: 100vh;
+  font-family: 'Source Code Pro', monospace;
+  overflow: hidden;
+}
+
+/* Simulated console text */
+.console {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.line {
+  margin: 0.2rem 0;
+  opacity: 0.8;
+}
+.blink {
+  animation: blink-cursor 1s step-end infinite;
+}
+@keyframes blink-cursor {
+  50% { opacity: 0; }
+}
+
+/* Center animated element */
+.centerpiece {
+  margin-bottom: 2rem;
+}
+.spinner-shape {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #0f0;
+  animation: rotate 3s linear infinite;
+}
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Return link styled as prompt */
+.return-btn {
+  color: #0f0;
+  text-decoration: none;
+  border: 1px solid #0f0;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.return-btn:hover {
+  background: rgba(0, 255, 0, 0.1);
+}
